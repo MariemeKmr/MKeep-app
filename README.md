@@ -66,7 +66,7 @@ API sur http://localhost:8000 - **documentation interactive sur http://localhost
 ## API principale
 
 | Méthode  | Route                   | Description                                  |
-|----------|-------------------------|------------------------------------------- --|
+|----------|-------------------------|----------------------------------------------|
 | POST     | `/api/auth/register`    | Inscription → token                          |
 | POST     | `/api/auth/login`       | Connexion → token                            |
 | GET      | `/api/auth/me`          | Profil + XP/niveau                           |
