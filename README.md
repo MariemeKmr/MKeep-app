@@ -1,80 +1,99 @@
 # MKeep - Gestionnaire de tâches gamifié
 
-Un gestionnaire de tâches un peu comme Notion mais en plus fun : chaque tâche terminée
-rapporte de l'**XP**, fait monter de **niveau**, entretient des **streaks** (jours
-consécutifs) et débloque des **succès**. L'objectif : rendre la productivité aussi
-satisfaisante qu'un jeu.
+> Transforme ta to-do list en jeu. Chaque tâche terminée rapporte de l'XP, fait monter de niveau, entretient des séries et débloque des succès. Aussi simple qu'une liste, aussi satisfaisant qu'un jeu.
 
-## Stack
+## Démo en ligne
 
-| Côté            | Techno                            |
-|-----------------|-----------------------------------|
-| Frontend        | Next.js + TypeScript + Tailwind   |
-| Backend         | FastAPI (Python) + SQLAlchemy 2.0 |
-| Base de données | MySQL 8                           |
-| Auth            | JWT (Bearer)                      |
+- **Application** : https://mkeep-app.vercel.app
+- **API (documentation interactive)** : https://mkeep-api.onrender.com 
+
+### Compte de démonstration
+
+Pour tester l'application sans créer de compte :
+
+| Champ | Valeur |
+|-------|--------|
+| Email | `user@user.com` |
+| Mot de passe | `MonTestUser` |
+
+*(Tu peux aussi créer ton propre compte en quelques secondes.)*
+
+## À propos
+
+MKeep est un gestionnaire de tâches pensé comme un **jeu de productivité**, plus simple qu'un Notion mais plus motivant qu'une simple liste. L'idée : rendre chaque tâche accomplie réellement gratifiante grâce à un système de progression complet (XP, niveaux, séries, succès), une interface colorée façon dessin animé, des animations qui rebondissent et des confettis à chaque tâche terminée.
+
+Le projet est un **fullstack complet** : interface Next.js, API REST FastAPI, base MySQL, authentification JWT, le tout déployé gratuitement.
+
+## Fonctionnalités
+
+- **Authentification** sécurisée (inscription / connexion par JWT)
+- **Gestion de tâches** : création, édition, priorités, catégories, complétion
+- **Système d'XP** : 10 / 20 / 35 points selon la priorité (+ bonus avant échéance)
+- **Niveaux** à courbe de progression croissante
+- **Streaks** : suivi des jours consécutifs d'activité
+- **10 succès** à débloquer (premiers pas, séries, paliers de niveau, lève-tôt / oiseau de nuit…)
+- **Tableau de bord** : statistiques, taux de réussite et graphique hebdomadaire coloré
+- **Confettis & modale de level-up** pour célébrer la progression
+- Interface responsive, style « sticker / cartoon », sans aucune image (logo en police bubble, icônes vectorielles)
+
+## Stack technique
+
+| Couche | Technologies |
+|--------|--------------|
+| Frontend | Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion, canvas-confetti, lucide-react |
+| Backend | FastAPI (Python), SQLAlchemy 2.0, PyMySQL, JWT (PyJWT), bcrypt |
+| Base de données | MySQL 8 |
+| Déploiement | Vercel (front) · Render (API) · Aiven (MySQL) |
 
 ## Architecture
 
 ```
 MKeep-app/
-├── docker-compose.yml      # MySQL + Adminer en local
-├── render.yaml             # déploiement backend (Render, gratuit)
-├── backend/                # API FastAPI
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   ├── .env.example
+├── backend/            # API FastAPI
 │   └── app/
-│       ├── main.py         # app FastAPI + CORS + démarrage
-│       ├── config.py       # variables d'environnement
-│       ├── database.py     # connexion SQLAlchemy
-│       ├── models.py       # User, Task, Achievement...
-│       ├── schemas.py      # validation Pydantic
+│       ├── main.py         # app + CORS + démarrage
+│       ├── models.py       # User, Task, Achievement
+│       ├── gamification.py  # moteur XP / niveaux / streaks / succès
 │       ├── security.py     # bcrypt + JWT
-│       ├── deps.py         # get_current_user
-│       ├── gamification.py # MOTEUR : XP, niveaux, streaks, succès
-│       ├── seed.py         # catalogue des succès
-│       └── routers/        # auth / tasks / stats / achievements
-└── frontend/               # Next.js (étape suivante)
+│       └── routers/        # auth, tasks, stats, achievements
+└── frontend/           # Next.js (interface cartoon gamifiée)
+    ├── app/                # pages (accueil, login, register, dashboard)
+    ├── components/         # XPBar, TaskCard, LevelUpModal, WeeklyChart…
+    └── lib/                # client API + types
 ```
 
 ## Lancer en local
 
-### 1. Base de données (Docker)
-```bash
-docker compose up -d
-# MySQL sur localhost:3306, Adminer sur http://localhost:8080
-```
+Prérequis : Python 3.11+, Node.js 18+, MySQL (ou XAMPP).
 
-### 2. Backend
+### Backend
 ```bash
 cd backend
-python -m venv .venv && source .venv/bin/activate   # Windows : .venv\Scripts\activate
+python -m venv .venv
+.venv\Scripts\activate          # Windows
 pip install -r requirements.txt
-cp .env.example .env                                
+copy .env.example .env          # puis renseigne DATABASE_URL
 uvicorn app.main:app --reload
 ```
-API sur http://localhost:8000 - **documentation interactive sur http://localhost:8000/docs**
+API sur http://localhost:8000 — documentation sur http://localhost:8000/docs
 
-## Le moteur de jeu (gamification.py)
+### Frontend
+```bash
+cd frontend
+npm install
+copy .env.example .env.local    # NEXT_PUBLIC_API_URL=http://localhost:8000
+npm run dev
+```
+Application sur http://localhost:3000
 
-- **XP par tâche** : basse = 10, moyenne = 20, haute = 35 (+10 si terminée avant l'échéance)
-- **Niveaux** : courbe croissante (niveau 2 = 100 XP, niveau 3 = +150, etc.)
-- **Streaks** : +1 par jour consécutif avec au moins une tâche terminée
-- **10 succès** : premiers pas, séries, paliers de niveau, lève-tôt / oiseau de nuit…
+## Déploiement (100 % gratuit)
 
-## API principale
+- **MySQL** → Aiven (plan Free, always-on)
+- **Backend** → Render (Docker, plan Free) via le fichier `render.yaml`
+- **Frontend** → Vercel (Root Directory = `frontend`)
 
-| Méthode  | Route                   | Description                                  |
-|----------|-------------------------|----------------------------------------------|
-| POST     | `/api/auth/register`    | Inscription → token                          |
-| POST     | `/api/auth/login`       | Connexion → token                            |
-| GET      | `/api/auth/me`          | Profil + XP/niveau                           |
-| GET/POST | `/api/tasks`            | Lister / créer des tâches                    |
-| POST     | `/api/stats`            | Tableau de bord + données du graphique hebdo |
-| GET      | `/api/stats/leaderboard`| Classement                                   |
-| GET      | `/api/achievements`     | Succès (débloqués ou non)                    |
-
+Les variables d'environnement clés : `DATABASE_URL`, `DB_SSL`, `JWT_SECRET`, `CORS_ORIGINS` (backend) et `NEXT_PUBLIC_API_URL` (frontend).
 
 ---
-© 2026 - Marième Kamara
+
+Développé par **Marième Kamara** - *Gestionnaire de tâches interactif*.
