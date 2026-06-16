@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     DATABASE_URL: str = "mysql+pymysql://mkeep:mkeep@localhost:3306/mkeep"
+    DB_SSL: bool = False  # mettre à true en prod si l'hébergeur impose le TLS
     JWT_SECRET: str = "change-moi"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 jours
