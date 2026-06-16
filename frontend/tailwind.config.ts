@@ -11,6 +11,7 @@ const config: Config = {
         primary: "#7C5CFF",
         "primary-dark": "#5B3FE0",
         pink: "#FF6B9D",
+        "pink-dark": "#E03B87", // ✅ Ajouté pour corriger définitivement l'erreur
         mint: "#34D399",
         sun: "#FFC93C",
         sky: "#4CC9F0",
@@ -25,7 +26,6 @@ const config: Config = {
         xl3: "2rem",
       },
       boxShadow: {
-        // ombre "autocollant" pleine et décalée
         pop: "4px 4px 0 0 #2B2147",
         "pop-lg": "6px 6px 0 0 #2B2147",
         "pop-sm": "3px 3px 0 0 #2B2147",

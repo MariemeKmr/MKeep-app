@@ -7,51 +7,90 @@
   --font-fredoka: "Fredoka", system-ui, sans-serif;
   --font-outfit: "Outfit", system-ui, sans-serif;
   --font-bubble: "Titan One", system-ui, sans-serif;
+  
+  /* Ajout d'une animation d'arrière-plan fluide */
+  --bg-dot-color: rgba(124, 92, 255, 0.15);
 }
 
 body {
   background-color: theme("colors.bg");
   color: theme("colors.ink");
-  /* petits points façon cahier d'enfant */
-  background-image: radial-gradient(rgba(124, 92, 255, 0.08) 1.5px, transparent 1.5px);
-  background-size: 26px 26px;
+  /* Points du cahier accentués et plus visibles */
+  background-image: radial-gradient(var(--bg-dot-color) 2px, transparent 2px);
+  background-size: 30px 30px;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 @layer components {
+  /* Effet Pop ultime : la carte se déplace au survol pour simuler la 3D */
   .card {
-    @apply rounded-xl2 border-[3px] border-ink bg-white shadow-pop;
+    @apply rounded-xl2 border-[3px] border-ink bg-white shadow-pop transition-all duration-200
+           hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-pop-lg;
   }
+  
+  /* Boutons style Arcade : effet d'enfoncement complet au clic */
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-xl2 border-[3px] border-ink
-           px-5 py-3 font-display font-semibold shadow-pop transition-all
-           active:translate-x-[2px] active:translate-y-[2px] active:shadow-pop-sm
-           disabled:opacity-50 disabled:active:translate-x-0 disabled:active:translate-y-0;
+           px-5 py-3 font-display font-bold shadow-pop transition-all duration-150 uppercase tracking-wide
+           hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop-lg
+           active:translate-x-[4px] active:translate-y-[4px] active:shadow-none
+           disabled:opacity-50 disabled:pointer-events-none;
   }
+  
+  /* Boutons thématiques avec contrastes maximisés */
   .btn-primary { @apply btn bg-primary text-white hover:bg-primary-dark; }
-  .btn-pink { @apply btn bg-pink text-white; }
-  .btn-mint { @apply btn bg-mint text-ink; }
-  .btn-ghost { @apply btn bg-white text-ink; }
+.btn-pink { @apply btn bg-pink text-white hover:bg-coral; }
+  .btn-mint { @apply btn bg-mint text-ink hover:bg-opacity-90; }
+  .btn-ghost { @apply btn bg-white text-ink hover:bg-bg; }
+  
+  /* Inputs Neo-Brutalistes */
   .input {
-    @apply w-full rounded-xl2 border-[3px] border-ink bg-white px-4 py-3 font-sans
-           outline-none placeholder:text-muted focus:shadow-pop-sm;
+    @apply w-full rounded-xl2 border-[3px] border-ink bg-white px-4 py-3 font-sans font-medium
+           outline-none placeholder:text-muted transition-all duration-150
+           focus:-translate-y-[2px] focus:shadow-pop-sm focus:bg-white;
   }
+  
+  /* Logo texturisé et ultra épais */
   .logo-mkeep {
     font-family: var(--font-bubble);
     color: #fff;
-    -webkit-text-stroke: 4px #2B2147;
+    -webkit-text-stroke: 5px #2B2147;
     paint-order: stroke fill;
-    text-shadow: 4px 4px 0 rgba(43, 33, 71, 0.22);
-    letter-spacing: 1px;
+    text-shadow: 5px 5px 0px #2B2147, 8px 8px 0px rgba(124, 92, 255, 0.3);
+    letter-spacing: 1.5px;
     line-height: 1;
+    @apply transform hover:scale-105 transition-transform duration-200 cursor-default select-none;
   }
+  
+  /* Badges de succès ou catégories */
   .chip {
-    @apply inline-flex items-center gap-1 rounded-full border-2 border-ink px-3 py-1
-           text-sm font-semibold;
+    @apply inline-flex items-center gap-1 rounded-full border-[3px] border-ink px-4 py-1.5
+           text-xs font-black uppercase tracking-wider shadow-pop-sm bg-white;
+  }
+  
+  /* Barre de progression d'XP style RPG */
+  .xp-bar-container {
+    @apply h-6 w-full rounded-full border-[3px] border-ink bg-white overflow-hidden p-[2px] shadow-pop-sm;
+  }
+  .xp-bar-fill {
+    @apply h-full rounded-full bg-gradient-to-r from-pink to-primary animate-pulse-slow transition-all duration-500;
   }
 }
 
-/* Accessibilité : respect du reduced-motion */
+/* Animations sur mesure pour le côté Gaming */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Accessibilité */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  *, *::before, *::after { 
+    animation-duration: 0.001ms !important; 
+    transition-duration: 0.001ms !important; 
+  }
 }

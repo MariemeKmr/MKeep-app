@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="MKeep API",
-    description="Gestionnaire de tâches gamifié — XP, niveaux, streaks et succès.",
+    description="Gestionnaire de tâches gamifié - XP, niveaux, streaks et succès.",
     version="1.0.0",
     lifespan=lifespan,
 )

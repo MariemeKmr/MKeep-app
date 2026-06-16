@@ -30,7 +30,7 @@ export default function AchievementsPage() {
         <div>
           <h1 className="font-display text-2xl font-700">Tes succès</h1>
           <p className="text-muted">
-            {unlocked}/{items.length} débloqués — continue de jouer pour tous les obtenir !
+            {unlocked}/{items.length} débloqués - continue de jouer pour tous les obtenir !
           </p>
         </div>
       </div>

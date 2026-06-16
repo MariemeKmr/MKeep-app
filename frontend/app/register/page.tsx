@@ -31,7 +31,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
+    <main className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
+      {/* Logo MKeep en relief cliquable pour revenir à l'accueil */}
+      <Link href="/" className="logo-mkeep text-6xl mb-8 tracking-wider">
+        MKeep
+      </Link>
+
       <motion.div
         initial={{ y: 24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -41,7 +46,7 @@ export default function RegisterPage() {
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl2 border-[3px] border-ink bg-pink text-white shadow-pop-sm">
             <Sparkles className="h-6 w-6" />
           </div>
-          <h1 className="font-display text-2xl font-700">Crée ton aventure</h1>
+          <h1 className="font-display text-2xl font-bold text-ink">Crée ton aventure</h1>
         </div>
 
         {error && (
@@ -61,14 +66,14 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && submit()}
           />
-          <button className="btn-pink w-full" onClick={submit} disabled={busy}>
+          <button className="btn-pink w-full flex items-center justify-center gap-2" onClick={submit} disabled={busy}>
             <UserPlus className="h-5 w-5" /> {busy ? "Création…" : "Créer mon compte"}
           </button>
         </div>
 
-        <p className="mt-6 text-center text-muted">
+        <p className="mt-6 text-center text-muted font-medium">
           Déjà inscrit ?{" "}
-          <Link href="/login" className="font-semibold text-primary underline">
+          <Link href="/login" className="font-bold text-primary underline decoration-2">
             Connecte-toi
           </Link>
         </p>

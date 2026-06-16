@@ -1,4 +1,4 @@
-# MKeep — Frontend (Next.js)
+# MKeep - Frontend (Next.js)
 
 Interface cartoon/jeu du gestionnaire de tâches MKeep.
 

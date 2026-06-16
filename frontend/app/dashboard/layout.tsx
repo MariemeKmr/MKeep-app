@@ -30,16 +30,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   return (
     <>
-      {/* Contour de page façon planche de BD */}
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-2 z-30 rounded-xl3 border-[4px] border-ink sm:inset-4"
-      />
 
       <div className="mx-auto flex min-h-screen max-w-3xl flex-col px-5 pb-28 pt-8 sm:px-7 sm:pb-12">
         {/* Logo MKeep en grand */}
         <header className="mb-6 flex flex-col items-center text-center">
-          <Link href="/dashboard" aria-label="MKeep — accueil">
+          <Link href="/dashboard" aria-label="MKeep - accueil">
             <span className="logo-mkeep text-6xl sm:text-7xl">MKeep</span>
           </Link>
           <p className="mt-1 font-display text-base font-500 text-muted sm:text-lg">
@@ -69,12 +64,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
 
         <main className="flex-1">{children}</main>
-
-        {/* Footer */}
-        <footer className="mt-12 border-t-[3px] border-ink pt-5 text-center">
-          <p className="font-display text-lg font-700">Marième Kamara</p>
-          <p className="text-sm text-muted">Gestionnaire de tâches interactif</p>
-        </footer>
       </div>
 
       {/* Navigation mobile (barre du bas) */}

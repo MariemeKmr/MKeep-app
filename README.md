@@ -1,4 +1,4 @@
-# MKeep — Gestionnaire de tâches gamifié
+# MKeep - Gestionnaire de tâches gamifié
 
 Un gestionnaire de tâches un peu comme Notion mais en plus fun : chaque tâche terminée
 rapporte de l'**XP**, fait monter de **niveau**, entretient des **streaks** (jours
@@ -54,7 +54,7 @@ pip install -r requirements.txt
 cp .env.example .env                                
 uvicorn app.main:app --reload
 ```
-API sur http://localhost:8000 — **documentation interactive sur http://localhost:8000/docs**
+API sur http://localhost:8000 - **documentation interactive sur http://localhost:8000/docs**
 
 ## Le moteur de jeu (gamification.py)
 

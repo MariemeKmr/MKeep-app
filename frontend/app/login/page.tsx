@@ -26,7 +26,12 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
+    <main className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
+      {/* Logo MKeep en relief cliquable pour revenir à l'accueil */}
+      <Link href="/" className="logo-mkeep text-6xl mb-8 tracking-wider">
+        MKeep
+      </Link>
+
       <motion.div
         initial={{ y: 24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -36,7 +41,7 @@ export default function LoginPage() {
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl2 border-[3px] border-ink bg-primary text-white shadow-pop-sm">
             <Sparkles className="h-6 w-6" />
           </div>
-          <h1 className="font-display text-2xl font-700">Content de te revoir !</h1>
+          <h1 className="font-display text-2xl font-bold text-ink">Content de te revoir !</h1>
         </div>
 
         {error && (
@@ -62,14 +67,14 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && submit()}
           />
-          <button className="btn-primary w-full" onClick={submit} disabled={busy}>
+          <button className="btn-primary w-full flex items-center justify-center gap-2" onClick={submit} disabled={busy}>
             <LogIn className="h-5 w-5" /> {busy ? "Connexion…" : "Se connecter"}
           </button>
         </div>
 
-        <p className="mt-6 text-center text-muted">
+        <p className="mt-6 text-center text-muted font-medium">
           Pas encore de compte ?{" "}
-          <Link href="/register" className="font-semibold text-primary underline">
+          <Link href="/register" className="font-bold text-primary underline decoration-2">
             Crée-en un
           </Link>
         </p>

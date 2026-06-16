@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/app/globals.css"; 
 import { AuthProvider } from "@/context/AuthContext";
+import Footer from "@/components/Footer"; 
 
 export const metadata: Metadata = {
-  title: "MKeep — tes tâches, version jeu",
+  title: "MKeep - Gaming tâches",
   description: "Gestionnaire de tâches gamifié : XP, niveaux, streaks et succès.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,8 +22,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans antialiased">
-        <AuthProvider>{children}</AuthProvider>
+      <body className="font-sans antialiased flex flex-col min-h-screen">
+        <AuthProvider>
+          {/* Le contenu de vos pages prend tout l'espace disponible */}
+          <main className="flex-1">
+            {children}
+          </main>
+          
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
