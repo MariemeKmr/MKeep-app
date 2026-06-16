@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --font-fredoka: "Fredoka", system-ui, sans-serif;
+  --font-outfit: "Outfit", system-ui, sans-serif;
+  --font-bubble: "Titan One", system-ui, sans-serif;
+}
+
+body {
+  background-color: theme("colors.bg");
+  color: theme("colors.ink");
+  /* petits points façon cahier d'enfant */
+  background-image: radial-gradient(rgba(124, 92, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  min-height: 100vh;
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl2 border-[3px] border-ink bg-white shadow-pop;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl2 border-[3px] border-ink
+           px-5 py-3 font-display font-semibold shadow-pop transition-all
+           active:translate-x-[2px] active:translate-y-[2px] active:shadow-pop-sm
+           disabled:opacity-50 disabled:active:translate-x-0 disabled:active:translate-y-0;
+  }
+  .btn-primary { @apply btn bg-primary text-white hover:bg-primary-dark; }
+  .btn-pink { @apply btn bg-pink text-white; }
+  .btn-mint { @apply btn bg-mint text-ink; }
+  .btn-ghost { @apply btn bg-white text-ink; }
+  .input {
+    @apply w-full rounded-xl2 border-[3px] border-ink bg-white px-4 py-3 font-sans
+           outline-none placeholder:text-muted focus:shadow-pop-sm;
+  }
+  .logo-mkeep {
+    font-family: var(--font-bubble);
+    color: #fff;
+    -webkit-text-stroke: 4px #2B2147;
+    paint-order: stroke fill;
+    text-shadow: 4px 4px 0 rgba(43, 33, 71, 0.22);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border-2 border-ink px-3 py-1
+           text-sm font-semibold;
+  }
+}
+
+/* Accessibilité : respect du reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
