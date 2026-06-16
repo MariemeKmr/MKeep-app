@@ -1,0 +1,15 @@
+# Déploiement Render (gratuit). À placer à la racine du repo.
+services:
+  - type: web
+    name: mkeep-api
+    runtime: docker
+    rootDir: backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false        # à renseigner dans le dashboard (URI Aiven)
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false        # ex : https://mkeep-app.vercel.app
